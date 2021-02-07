@@ -123,7 +123,7 @@ class _TreeNodeState extends State<TreeNode>
             ),
           )
         : Container(
-            width: _kIconSize,
+            width: 10,
           );
   }
 
@@ -132,7 +132,7 @@ class _TreeNodeState extends State<TreeNode>
     assert(_treeView != null, 'TreeView must exist in context');
     TreeViewTheme _theme = _treeView.theme;
     return Container(
-      width: widget.node.hasIcon ? _kIconSize : 10,
+      width: widget.node.hasIcon ? _theme.iconTheme.size : 0,
       child: widget.node.hasIcon
           ? Icon(
               widget.node.icon.icon,
@@ -155,7 +155,7 @@ class _TreeNodeState extends State<TreeNode>
     final icon = _buildNodeIcon();
     return Container(
       padding: EdgeInsets.symmetric(
-        vertical: _theme.dense ? 10 : 15,
+        vertical: _theme.verticalSpacing ?? (_theme.dense ? 10 : 15),
         horizontal: 0,
       ),
       color: isSelected
@@ -286,7 +286,9 @@ class _TreeNodeState extends State<TreeNode>
             child: closed
                 ? null
                 : Container(
-                    margin: EdgeInsets.only(left: _kIconSize),
+                    margin: EdgeInsets.only(
+                        left: _treeView.theme.horizontalSpacing ??
+                            _treeView.theme.iconTheme.size),
                     child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: widget.node.children.map((Node node) {
@@ -325,7 +327,9 @@ class _TreeNodeExpanderState extends State<_TreeNodeExpander>
       controller = AnimationController(
         duration: Duration(
             milliseconds: widget.themeData.animated
-                ? isEnd ? _kExpander180Speed : _kExpander90Speed
+                ? isEnd
+                    ? _kExpander180Speed
+                    : _kExpander90Speed
                 : 0),
         vsync: this,
       );
@@ -356,7 +360,9 @@ class _TreeNodeExpanderState extends State<_TreeNodeExpander>
         if (widget.themeData.type != ExpanderType.plusMinus) {
           controller.duration = Duration(
               milliseconds: widget.themeData.animated
-                  ? isEnd ? _kExpander180Speed : _kExpander90Speed
+                  ? isEnd
+                      ? _kExpander180Speed
+                      : _kExpander90Speed
                   : 0);
           animation = Tween<double>(
             begin: 0,
