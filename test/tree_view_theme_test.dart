@@ -24,7 +24,7 @@ void main() {
     expect(theme.colorScheme, ColorScheme.dark());
     expect(theme.levelPadding, 25);
     expect(theme.iconTheme.isConcrete, false);
-    expect(theme.expanderTheme.isConcrete, true);
+    // expect(theme.expanderTheme.isConcrete, true);
     expect(theme.labelStyle.fontSize, 35);
   });
   test('merge', () {
@@ -40,7 +40,7 @@ void main() {
     expect(theme.colorScheme, ColorScheme.dark());
     expect(theme.levelPadding, 25);
     expect(theme.iconTheme.isConcrete, false);
-    expect(theme.expanderTheme.isConcrete, true);
+    // expect(theme.expanderTheme.isConcrete, true);
     expect(theme.labelStyle.fontSize, 35);
     expect(theme, theme2);
   });

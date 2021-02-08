@@ -37,11 +37,16 @@ class Node<T> {
   /// The sub [Node]s of this object.
   final List<Node> children;
 
+  /// Force the node to be a parent so that node can show expander without
+  /// having children node.
+  final bool parent;
+
   Node({
     @required this.key,
     @required this.label,
     this.children: const [],
     this.expanded: false,
+    this.parent: false,
     this.icon,
     this.data,
   })  : assert(key != null),
@@ -86,6 +91,7 @@ class Node<T> {
       icon: _icon,
       data: _data,
       expanded: Utilities.truthful(map['expanded']),
+      parent: Utilities.truthful(map['parent']),
       children: _children,
     );
   }
@@ -97,6 +103,7 @@ class Node<T> {
     String label,
     List<Node> children,
     bool expanded,
+    bool parent,
     NodeIcon icon,
     T data,
   }) =>
@@ -105,12 +112,13 @@ class Node<T> {
         label: label ?? this.label,
         icon: icon ?? this.icon,
         expanded: expanded ?? this.expanded,
+        parent: parent ?? this.parent,
         children: children ?? this.children,
         data: data ?? this.data,
       );
 
   /// Whether this object has children [Node].
-  bool get isParent => children.isNotEmpty;
+  bool get isParent => children.isNotEmpty || parent;
 
   /// Whether this object has a non-null icon.
   bool get hasIcon => icon != null && icon.icon != null;
@@ -125,6 +133,7 @@ class Node<T> {
       "label": label,
       "icon": icon == null ? null : icon.asMap,
       "expanded": expanded,
+      "parent": parent,
       "children": children.map((Node child) => child.asMap).toList(),
     };
     //TODO: figure out a means to check for getter or method on generic to include map from generic
@@ -143,6 +152,7 @@ class Node<T> {
       label,
       icon,
       expanded,
+      parent,
       children,
     );
   }
@@ -156,6 +166,7 @@ class Node<T> {
         other.label == label &&
         other.icon == icon &&
         other.expanded == expanded &&
+        other.parent == parent &&
         other.data.runtimeType == T &&
         other.children.length == children.length;
   }

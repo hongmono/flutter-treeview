@@ -131,14 +131,20 @@ class _TreeNodeState extends State<TreeNode>
     TreeView _treeView = TreeView.of(context);
     assert(_treeView != null, 'TreeView must exist in context');
     TreeViewTheme _theme = _treeView.theme;
+    bool isSelected = _treeView.controller.selectedKey != null &&
+        _treeView.controller.selectedKey == widget.node.key;
     return Container(
-      width: widget.node.hasIcon ? _theme.iconTheme.size : 0,
+      alignment: Alignment.center,
+      width:
+          widget.node.hasIcon ? _theme.iconTheme.size + _theme.iconPadding : 0,
       child: widget.node.hasIcon
           ? Icon(
               widget.node.icon.icon,
               size: _theme.iconTheme.size,
-              color:
-                  widget.node.icon != null && widget.node.icon.iconColor != null
+              color: isSelected
+                  ? _theme.colorScheme.onPrimary
+                  : widget.node.icon != null &&
+                          widget.node.icon.iconColor != null
                       ? widget.node.icon.iconColor
                       : _theme.iconTheme.color,
             )
@@ -158,9 +164,6 @@ class _TreeNodeState extends State<TreeNode>
         vertical: _theme.verticalSpacing ?? (_theme.dense ? 10 : 15),
         horizontal: 0,
       ),
-      color: isSelected
-          ? _theme.colorScheme.primary
-          : _theme.colorScheme.background,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -174,15 +177,11 @@ class _TreeNodeState extends State<TreeNode>
                       fontWeight: _theme.parentLabelStyle.fontWeight,
                       color: isSelected
                           ? _theme.colorScheme.onPrimary
-                          : _theme.parentLabelStyle.color == TextStyle().color
-                              ? _theme.colorScheme.onBackground
-                              : _theme.parentLabelStyle.color,
+                          : _theme.parentLabelStyle.color,
                     )
                   : _theme.labelStyle.copyWith(
                       fontWeight: _theme.labelStyle.fontWeight,
-                      color: isSelected
-                          ? _theme.colorScheme.onPrimary
-                          : _theme.colorScheme.onBackground,
+                      color: isSelected ? _theme.colorScheme.onPrimary : null,
                     ),
             ),
           ),
@@ -236,9 +235,7 @@ class _TreeNodeState extends State<TreeNode>
       }
     }
     return Container(
-      color: isSelected
-          ? _theme.colorScheme.primary
-          : _theme.colorScheme.background,
+      color: isSelected ? _theme.colorScheme.primary : null,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -378,11 +375,14 @@ class _TreeNodeExpanderState extends State<_TreeNodeExpander>
   }
 
   Color _onColor(Color color) {
-    if (color.computeLuminance() > 0.6) {
-      return Colors.black;
-    } else {
-      return Colors.white;
+    if (color != null) {
+      if (color.computeLuminance() > 0.6) {
+        return Colors.black;
+      } else {
+        return Colors.white;
+      }
     }
+    return null;
   }
 
   @override
@@ -392,13 +392,14 @@ class _TreeNodeExpanderState extends State<_TreeNodeExpander>
     double _borderWidth = 0;
     BoxShape _shapeBorder = BoxShape.rectangle;
     Color _backColor = Colors.transparent;
-    Color _iconColor = widget.themeData.color;
+    Color _iconColor =
+        widget.themeData.color ?? Theme.of(context).iconTheme.color;
     switch (widget.themeData.modifier) {
       case ExpanderModifier.none:
         break;
       case ExpanderModifier.circleFilled:
         _shapeBorder = BoxShape.circle;
-        _backColor = widget.themeData.color;
+        _backColor = widget.themeData.color ?? Colors.black;
         _iconColor = _onColor(_backColor);
         break;
       case ExpanderModifier.circleOutlined:
@@ -406,7 +407,7 @@ class _TreeNodeExpanderState extends State<_TreeNodeExpander>
         _shapeBorder = BoxShape.circle;
         break;
       case ExpanderModifier.squareFilled:
-        _backColor = widget.themeData.color;
+        _backColor = widget.themeData.color ?? Colors.black;
         _iconColor = _onColor(_backColor);
         break;
       case ExpanderModifier.squareOutlined:
@@ -452,7 +453,7 @@ class _TreeNodeExpanderState extends State<_TreeNodeExpander>
             ? null
             : Border.all(
                 width: _borderWidth,
-                color: widget.themeData.color,
+                color: widget.themeData.color ?? Colors.black,
               ),
         color: _backColor,
       ),

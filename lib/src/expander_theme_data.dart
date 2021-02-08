@@ -55,7 +55,7 @@ class ExpanderThemeData {
   final bool animated;
 
   const ExpanderThemeData({
-    this.color: const Color(0xFF000000),
+    this.color,
     this.position: ExpanderPosition.start,
     this.type: ExpanderType.caret,
     this.size: _kDefaultExpanderSize,

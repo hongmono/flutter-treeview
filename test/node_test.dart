@@ -47,6 +47,7 @@ void main() {
         "label": "Home",
         "icon": null,
         "expanded": false,
+        "parent": false,
         "children": [],
       };
       final Node node = Node.fromMap(map);
@@ -85,12 +86,14 @@ void main() {
           "fontPackage": null,
         },
         "expanded": true,
+        "parent": false,
         "children": [
           {
             "key": "12345b",
             "label": "Basement",
             "icon": null,
             "expanded": false,
+            "parent": false,
             "children": [],
           },
           {
@@ -98,6 +101,7 @@ void main() {
             "label": "Kitchen",
             "icon": null,
             "expanded": false,
+            "parent": false,
             "children": [],
           }
         ],

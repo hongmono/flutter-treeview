@@ -30,6 +30,9 @@ class TreeViewTheme {
   /// If this property is null then horizontal spacing between tabs is default [_treeView.theme.iconTheme.size + 5]
   final double horizontalSpacing;
 
+  /// Horizontal padding for node icons.
+  final double iconPadding;
+
   /// The default appearance theme for [TreeNode] icons.
   final IconThemeData iconTheme;
 
@@ -52,6 +55,7 @@ class TreeViewTheme {
     this.dense: true,
     this.verticalSpacing,
     this.horizontalSpacing,
+    this.iconPadding: 8,
   });
 
   /// Creates a [TreeView] theme with some reasonable default values.
@@ -71,6 +75,7 @@ class TreeViewTheme {
         dense = true,
         verticalSpacing = null,
         horizontalSpacing = null,
+        iconPadding = 8,
         levelPadding = _kDefaultLevelPadding;
 
   /// Creates a copy of this theme but with the given fields replaced with
@@ -84,11 +89,13 @@ class TreeViewTheme {
     bool dense,
     double verticalSpacing,
     double horizontalSpacing,
+    double iconPadding,
     double levelPadding,
   }) {
     return TreeViewTheme(
       colorScheme: colorScheme ?? this.colorScheme,
       levelPadding: levelPadding ?? this.levelPadding,
+      iconPadding: iconPadding ?? this.iconPadding,
       iconTheme: iconTheme ?? this.iconTheme,
       expanderTheme: expanderTheme ?? this.expanderTheme,
       labelStyle: labelStyle ?? this.labelStyle,
@@ -107,11 +114,13 @@ class TreeViewTheme {
     return copyWith(
       colorScheme: other.colorScheme,
       levelPadding: other.levelPadding,
+      iconPadding: other.iconPadding,
       iconTheme: other.iconTheme,
       expanderTheme: other.expanderTheme,
       labelStyle: other.labelStyle,
       dense: other.dense,
       verticalSpacing: other.verticalSpacing,
+      horizontalSpacing: other.horizontalSpacing,
       parentLabelStyle: other.parentLabelStyle,
     );
   }
@@ -123,11 +132,13 @@ class TreeViewTheme {
     return hashValues(
       colorScheme,
       levelPadding,
+      iconPadding,
       iconTheme,
       expanderTheme,
       labelStyle,
       dense,
       verticalSpacing,
+      horizontalSpacing,
       parentLabelStyle,
     );
   }
@@ -139,11 +150,13 @@ class TreeViewTheme {
     return other is TreeViewTheme &&
         other.colorScheme == colorScheme &&
         other.levelPadding == levelPadding &&
+        other.iconPadding == iconPadding &&
         other.iconTheme == iconTheme &&
         other.expanderTheme == expanderTheme &&
         other.labelStyle == labelStyle &&
         other.dense == dense &&
         other.verticalSpacing == verticalSpacing &&
+        other.horizontalSpacing == horizontalSpacing &&
         other.parentLabelStyle == parentLabelStyle;
   }
 }

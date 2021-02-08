@@ -1,3 +1,14 @@
+## [0.7.0+1]
+
+### Added
+* Added support for vertical and horizontal spacing. Thanks to Long Ti.
+* Added support for padding node icons. 
+* Added bool parent property to Node class to force node to act as parent. 
+
+### Updated
+* Updated expander theme to not default to black but instead use the color of the current theme.
+* Removed background color from tree nodes that aren't selected 
+
 ## [0.6.0+1]
 
 ### Added
