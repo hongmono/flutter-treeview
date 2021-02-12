@@ -262,18 +262,21 @@ class TreeViewController {
     _ancestors.add(_currentKey);
 
     Node _parent = this.getParent(_currentKey);
-    while (_parent.key != _currentKey) {
-      _currentKey = _parent.key;
-      _ancestors.add(_currentKey);
-      _parent = this.getParent(_currentKey);
+    if (_parent != null) {
+      while (_parent.key != _currentKey) {
+        _currentKey = _parent.key;
+        _ancestors.add(_currentKey);
+        _parent = this.getParent(_currentKey);
+      }
+      TreeViewController _this = this;
+      _ancestors.forEach((String k) {
+        Node _node = _this.getNode(k);
+        Node _updated = _node.copyWith(expanded: true);
+        _this = _this.withUpdateNode(k, _updated);
+      });
+      return _this.children;
     }
-    TreeViewController _this = this;
-    _ancestors.forEach((String k) {
-      Node _node = _this.getNode(k);
-      Node _updated = _node.copyWith(expanded: true);
-      _this = _this.withUpdateNode(k, _updated);
-    });
-    return _this.children;
+    return this.children;
   }
 
   /// Collapses a node and all of the node's ancestors without the need to
@@ -285,18 +288,21 @@ class TreeViewController {
     _ancestors.add(_currentKey);
 
     Node _parent = this.getParent(_currentKey);
-    while (_parent.key != _currentKey) {
-      _currentKey = _parent.key;
-      _ancestors.add(_currentKey);
-      _parent = this.getParent(_currentKey);
+    if (_parent != null) {
+      while (_parent.key != _currentKey) {
+        _currentKey = _parent.key;
+        _ancestors.add(_currentKey);
+        _parent = this.getParent(_currentKey);
+      }
+      TreeViewController _this = this;
+      _ancestors.forEach((String k) {
+        Node _node = _this.getNode(k);
+        Node _updated = _node.copyWith(expanded: false);
+        _this = _this.withUpdateNode(k, _updated);
+      });
+      return _this.children;
     }
-    TreeViewController _this = this;
-    _ancestors.forEach((String k) {
-      Node _node = _this.getNode(k);
-      Node _updated = _node.copyWith(expanded: false);
-      _this = _this.withUpdateNode(k, _updated);
-    });
-    return _this.children;
+    return this.children;
   }
 
   /// Adds a new node to an existing node identified by specified key. It optionally

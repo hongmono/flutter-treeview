@@ -1,3 +1,8 @@
+## [0.7.1+1]
+
+### Updated
+* Refactored logic to prevent getter 'key' called on null error when calling expandToNode and collapseToNode functions. 
+
 ## [0.7.0+1]
 
 ### Added
