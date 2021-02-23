@@ -172,6 +172,12 @@ class _TreeNodeState extends State<TreeNode>
           Expanded(
             child: Text(
               widget.node.label,
+              softWrap: widget.node.isParent
+                  ? _theme.parentLabelOverflow == null
+                  : _theme.labelOverflow == null,
+              overflow:  widget.node.isParent
+                  ? _theme.parentLabelOverflow
+                  : _theme.labelOverflow,
               style: widget.node.isParent
                   ? _theme.parentLabelStyle.copyWith(
                       fontWeight: _theme.parentLabelStyle.fontWeight,
