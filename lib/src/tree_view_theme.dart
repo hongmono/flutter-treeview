@@ -45,16 +45,26 @@ class TreeViewTheme {
   /// The text style for parent [TreeNode] text.
   final TextStyle parentLabelStyle;
 
+  /// The text overflow for child [TreeNode] text.
+  /// If this property is null then [softWrap] is true;
+  final TextOverflow labelOverflow;
+
+  /// The text overflow for parent [TreeNode] text.
+  /// If this property is null then [softWrap] is true;
+  final TextOverflow parentLabelOverflow;
+
   const TreeViewTheme({
     this.colorScheme: const ColorScheme.light(),
     this.iconTheme: const IconThemeData.fallback(),
     this.expanderTheme: const ExpanderThemeData.fallback(),
     this.labelStyle: const TextStyle(),
     this.parentLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
+    this.labelOverflow,
+    this.parentLabelOverflow,
     this.levelPadding: _kDefaultLevelPadding,
     this.dense: true,
     this.verticalSpacing,
-    this.horizontalSpacing,
+    this.horizontalSpacing,    
     this.iconPadding: 8,
   });
 
@@ -72,6 +82,8 @@ class TreeViewTheme {
         expanderTheme = const ExpanderThemeData.fallback(),
         labelStyle = const TextStyle(),
         parentLabelStyle = const TextStyle(fontWeight: FontWeight.bold),
+        labelOverflow = null,
+        parentLabelOverflow = null,
         dense = true,
         verticalSpacing = null,
         horizontalSpacing = null,
@@ -86,6 +98,8 @@ class TreeViewTheme {
     ExpanderThemeData expanderTheme,
     TextStyle labelStyle,
     TextStyle parentLabelStyle,
+    TextOverflow labelOverflow,
+    TextOverflow parentLabelOverflow,
     bool dense,
     double verticalSpacing,
     double horizontalSpacing,
@@ -103,6 +117,8 @@ class TreeViewTheme {
       verticalSpacing: verticalSpacing ?? this.verticalSpacing,
       horizontalSpacing: horizontalSpacing ?? this.horizontalSpacing,
       parentLabelStyle: parentLabelStyle ?? this.parentLabelStyle,
+      labelOverflow: labelOverflow ?? this.labelOverflow,
+      parentLabelOverflow: parentLabelOverflow ?? this.parentLabelOverflow
     );
   }
 
@@ -122,6 +138,8 @@ class TreeViewTheme {
       verticalSpacing: other.verticalSpacing,
       horizontalSpacing: other.horizontalSpacing,
       parentLabelStyle: other.parentLabelStyle,
+      labelOverflow: other.labelOverflow,
+      parentLabelOverflow: other.parentLabelOverflow
     );
   }
 
@@ -140,6 +158,8 @@ class TreeViewTheme {
       verticalSpacing,
       horizontalSpacing,
       parentLabelStyle,
+      labelOverflow,
+      parentLabelOverflow
     );
   }
 
@@ -157,6 +177,8 @@ class TreeViewTheme {
         other.dense == dense &&
         other.verticalSpacing == verticalSpacing &&
         other.horizontalSpacing == horizontalSpacing &&
-        other.parentLabelStyle == parentLabelStyle;
+        other.parentLabelStyle == parentLabelStyle &&
+        other.labelOverflow == labelOverflow &&
+        other.parentLabelOverflow == parentLabelOverflow;
   }
 }
