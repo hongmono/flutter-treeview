@@ -209,6 +209,46 @@ class TreeViewController {
     );
   }
 
+  /// Expands all nodes down to parent Node.
+  /// It returns a new controller with the nodes expanded.
+  /// This method expects the user to properly place this call so
+  /// that the state is updated.
+  ///
+  /// Internally uses [TreeViewController.expandAll].
+  ///
+  /// ```dart
+  /// setState((){
+  ///   controller = controller.withExpandAll();
+  /// });
+  /// ```
+  TreeViewController withExpandAll({Node parent}) {
+    List<Node> _data = expandAll(parent: parent);
+    return TreeViewController(
+      children: _data,
+      selectedKey: this.selectedKey,
+    );
+  }
+
+  /// Collapses all nodes down to parent Node.
+  /// It returns a new controller with the nodes collapsed.
+  /// This method expects the user to properly place this call so
+  /// that the state is updated.
+  ///
+  /// Internally uses [TreeViewController.collapseAll].
+  ///
+  /// ```dart
+  /// setState((){
+  ///   controller = controller.withCollapseAll();
+  /// });
+  /// ```
+  TreeViewController withCollapseAll({Node parent}) {
+    List<Node> _data = collapseAll(parent: parent);
+    return TreeViewController(
+      children: _data,
+      selectedKey: this.selectedKey,
+    );
+  }
+
   /// Gets the node that has a key value equal to the specified key.
   Node getNode(String key, {Node parent}) {
     Node _found;
@@ -229,6 +269,44 @@ class TreeViewController {
       }
     }
     return _found;
+  }
+
+  /// Expands all node that are children of the parent node parameter. If no parent is passed, uses the root node as the parent.
+  List<Node> expandAll({Node parent}) {
+    List<Node> _children = [];
+    Iterator iter =
+        parent == null ? this.children.iterator : parent.children.iterator;
+    while (iter.moveNext()) {
+      Node child = iter.current;
+      if (child.isParent) {
+        _children.add(child.copyWith(
+          expanded: true,
+          children: this.expandAll(parent: child),
+        ));
+      } else {
+        _children.add(child);
+      }
+    }
+    return _children;
+  }
+
+  /// Collapses all node that are children of the parent node parameter. If no parent is passed, uses the root node as the parent.
+  List<Node> collapseAll({Node parent}) {
+    List<Node> _children = [];
+    Iterator iter =
+        parent == null ? this.children.iterator : parent.children.iterator;
+    while (iter.moveNext()) {
+      Node child = iter.current;
+      if (child.isParent) {
+        _children.add(child.copyWith(
+          expanded: false,
+          children: this.expandAll(parent: child),
+        ));
+      } else {
+        _children.add(child);
+      }
+    }
+    return _children;
   }
 
   /// Gets the parent of the node identified by specified key.

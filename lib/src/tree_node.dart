@@ -6,8 +6,6 @@ import 'package:flutter_treeview/tree_view.dart';
 import 'expander_theme_data.dart';
 import 'models/node.dart';
 
-const int _kExpander180Speed = 200;
-const int _kExpander90Speed = 125;
 const double _kBorderWidth = 0.75;
 
 /// Defines the [TreeNode] widget.
@@ -34,7 +32,6 @@ class _TreeNodeState extends State<TreeNode>
     with SingleTickerProviderStateMixin {
   static final Animatable<double> _easeInTween =
       CurveTween(curve: Curves.easeIn);
-  static Duration _kExpand = Duration(milliseconds: 200);
   static double _kIconSize = 28;
 
   AnimationController _controller;
@@ -44,10 +41,18 @@ class _TreeNodeState extends State<TreeNode>
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(duration: _kExpand, vsync: this);
+    _controller =
+        AnimationController(duration: Duration(milliseconds: 200), vsync: this);
     _heightFactor = _controller.drive(_easeInTween);
     _isExpanded = widget.node.expanded;
     if (_isExpanded) _controller.value = 1.0;
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    TreeView _treeView = TreeView.of(context);
+    _controller.duration = _treeView.theme.expandSpeed;
   }
 
   @override
@@ -118,6 +123,7 @@ class _TreeNodeState extends State<TreeNode>
         ? GestureDetector(
             onTap: () => _handleExpand(),
             child: _TreeNodeExpander(
+              speed: _controller.duration,
               expanded: widget.node.expanded,
               themeData: _theme.expanderTheme,
             ),
@@ -139,14 +145,11 @@ class _TreeNodeState extends State<TreeNode>
           widget.node.hasIcon ? _theme.iconTheme.size + _theme.iconPadding : 0,
       child: widget.node.hasIcon
           ? Icon(
-              widget.node.icon.icon,
+              widget.node.icon,
               size: _theme.iconTheme.size,
               color: isSelected
                   ? _theme.colorScheme.onPrimary
-                  : widget.node.icon != null &&
-                          widget.node.icon.iconColor != null
-                      ? widget.node.icon.iconColor
-                      : _theme.iconTheme.color,
+                  : _theme.iconTheme.color,
             )
           : null,
     );
@@ -175,7 +178,7 @@ class _TreeNodeState extends State<TreeNode>
               softWrap: widget.node.isParent
                   ? _theme.parentLabelOverflow == null
                   : _theme.labelOverflow == null,
-              overflow:  widget.node.isParent
+              overflow: widget.node.isParent
                   ? _theme.parentLabelOverflow
                   : _theme.labelOverflow,
               style: widget.node.isParent
@@ -196,7 +199,7 @@ class _TreeNodeState extends State<TreeNode>
     );
   }
 
-  Widget _buildNodeTitle() {
+  Widget _buildNodeWidget() {
     TreeView _treeView = TreeView.of(context);
     assert(_treeView != null, 'TreeView must exist in context');
     TreeViewTheme _theme = _treeView.theme;
@@ -204,7 +207,9 @@ class _TreeNodeState extends State<TreeNode>
         _treeView.controller.selectedKey == widget.node.key;
     bool canSelectParent = _treeView.allowParentSelect;
     final arrowContainer = _buildNodeExpander();
-    final labelContainer = _buildNodeLabel();
+    final labelContainer = _treeView.nodeBuilder != null
+        ? _treeView.nodeBuilder(context, widget.node)
+        : _buildNodeLabel();
     Widget _tappable = _treeView.onNodeDoubleTap != null
         ? InkWell(
             hoverColor: Colors.blue,
@@ -268,7 +273,7 @@ class _TreeNodeState extends State<TreeNode>
     assert(_treeView != null, 'TreeView must exist in context');
     final bool closed =
         (!_isExpanded || !widget.node.expanded) && _controller.isDismissed;
-    final nodeLabel = _buildNodeTitle();
+    final nodeWidget = _buildNodeWidget();
     return widget.node.isParent
         ? AnimatedBuilder(
             animation: _controller.view,
@@ -276,7 +281,7 @@ class _TreeNodeState extends State<TreeNode>
               return Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  nodeLabel,
+                  nodeWidget,
                   ClipRect(
                     child: Align(
                       heightFactor: _heightFactor.value,
@@ -300,7 +305,7 @@ class _TreeNodeState extends State<TreeNode>
                   ),
           )
         : Container(
-            child: nodeLabel,
+            child: nodeWidget,
           );
   }
 }
@@ -308,11 +313,13 @@ class _TreeNodeState extends State<TreeNode>
 class _TreeNodeExpander extends StatefulWidget {
   final ExpanderThemeData themeData;
   final bool expanded;
+  final Duration _expandSpeed;
 
   const _TreeNodeExpander({
+    Duration speed,
     this.themeData,
     this.expanded,
-  });
+  }) : _expandSpeed = speed;
 
   @override
   _TreeNodeExpanderState createState() => _TreeNodeExpanderState();
@@ -328,12 +335,11 @@ class _TreeNodeExpanderState extends State<_TreeNodeExpander>
     bool isEnd = widget.themeData.position == ExpanderPosition.end;
     if (widget.themeData.type != ExpanderType.plusMinus) {
       controller = AnimationController(
-        duration: Duration(
-            milliseconds: widget.themeData.animated
-                ? isEnd
-                    ? _kExpander180Speed
-                    : _kExpander90Speed
-                : 0),
+        duration: widget.themeData.animated
+            ? isEnd
+                ? widget._expandSpeed * 0.625
+                : widget._expandSpeed
+            : Duration(milliseconds: 0),
         vsync: this,
       );
       animation = Tween<double>(
@@ -361,12 +367,11 @@ class _TreeNodeExpanderState extends State<_TreeNodeExpander>
       bool isEnd = widget.themeData.position == ExpanderPosition.end;
       setState(() {
         if (widget.themeData.type != ExpanderType.plusMinus) {
-          controller.duration = Duration(
-              milliseconds: widget.themeData.animated
-                  ? isEnd
-                      ? _kExpander180Speed
-                      : _kExpander90Speed
-                  : 0);
+          controller.duration = widget.themeData.animated
+              ? isEnd
+                  ? widget._expandSpeed * 0.625
+                  : widget._expandSpeed
+              : Duration(milliseconds: 0);
           animation = Tween<double>(
             begin: 0,
             end: isEnd ? 180 : 90,

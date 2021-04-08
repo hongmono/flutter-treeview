@@ -3,6 +3,7 @@ import 'package:flutter_treeview/src/expander_theme_data.dart';
 import 'package:flutter_treeview/src/tree_node.dart';
 
 const double _kDefaultLevelPadding = 20;
+const int _kExpandSpeed = 130;
 
 /// Defines the appearance of the [TreeView].
 ///
@@ -53,6 +54,9 @@ class TreeViewTheme {
   /// If this property is null then [softWrap] is true;
   final TextOverflow parentLabelOverflow;
 
+  /// the speed at which expander icon animates.
+  final Duration expandSpeed;
+
   const TreeViewTheme({
     this.colorScheme: const ColorScheme.light(),
     this.iconTheme: const IconThemeData.fallback(),
@@ -64,8 +68,9 @@ class TreeViewTheme {
     this.levelPadding: _kDefaultLevelPadding,
     this.dense: true,
     this.verticalSpacing,
-    this.horizontalSpacing,    
+    this.horizontalSpacing,
     this.iconPadding: 8,
+    this.expandSpeed: const Duration(milliseconds: _kExpandSpeed),
   });
 
   /// Creates a [TreeView] theme with some reasonable default values.
@@ -88,7 +93,8 @@ class TreeViewTheme {
         verticalSpacing = null,
         horizontalSpacing = null,
         iconPadding = 8,
-        levelPadding = _kDefaultLevelPadding;
+        levelPadding = _kDefaultLevelPadding,
+        expandSpeed = const Duration(milliseconds: _kExpandSpeed);
 
   /// Creates a copy of this theme but with the given fields replaced with
   /// the new values.
@@ -107,19 +113,18 @@ class TreeViewTheme {
     double levelPadding,
   }) {
     return TreeViewTheme(
-      colorScheme: colorScheme ?? this.colorScheme,
-      levelPadding: levelPadding ?? this.levelPadding,
-      iconPadding: iconPadding ?? this.iconPadding,
-      iconTheme: iconTheme ?? this.iconTheme,
-      expanderTheme: expanderTheme ?? this.expanderTheme,
-      labelStyle: labelStyle ?? this.labelStyle,
-      dense: dense ?? this.dense,
-      verticalSpacing: verticalSpacing ?? this.verticalSpacing,
-      horizontalSpacing: horizontalSpacing ?? this.horizontalSpacing,
-      parentLabelStyle: parentLabelStyle ?? this.parentLabelStyle,
-      labelOverflow: labelOverflow ?? this.labelOverflow,
-      parentLabelOverflow: parentLabelOverflow ?? this.parentLabelOverflow
-    );
+        colorScheme: colorScheme ?? this.colorScheme,
+        levelPadding: levelPadding ?? this.levelPadding,
+        iconPadding: iconPadding ?? this.iconPadding,
+        iconTheme: iconTheme ?? this.iconTheme,
+        expanderTheme: expanderTheme ?? this.expanderTheme,
+        labelStyle: labelStyle ?? this.labelStyle,
+        dense: dense ?? this.dense,
+        verticalSpacing: verticalSpacing ?? this.verticalSpacing,
+        horizontalSpacing: horizontalSpacing ?? this.horizontalSpacing,
+        parentLabelStyle: parentLabelStyle ?? this.parentLabelStyle,
+        labelOverflow: labelOverflow ?? this.labelOverflow,
+        parentLabelOverflow: parentLabelOverflow ?? this.parentLabelOverflow);
   }
 
   /// Returns a new theme that matches this [TreeView] theme but with some values
@@ -128,39 +133,40 @@ class TreeViewTheme {
   TreeViewTheme merge(TreeViewTheme other) {
     if (other == null) return this;
     return copyWith(
-      colorScheme: other.colorScheme,
-      levelPadding: other.levelPadding,
-      iconPadding: other.iconPadding,
-      iconTheme: other.iconTheme,
-      expanderTheme: other.expanderTheme,
-      labelStyle: other.labelStyle,
-      dense: other.dense,
-      verticalSpacing: other.verticalSpacing,
-      horizontalSpacing: other.horizontalSpacing,
-      parentLabelStyle: other.parentLabelStyle,
-      labelOverflow: other.labelOverflow,
-      parentLabelOverflow: other.parentLabelOverflow
-    );
+        colorScheme: other.colorScheme,
+        levelPadding: other.levelPadding,
+        iconPadding: other.iconPadding,
+        iconTheme: other.iconTheme,
+        expanderTheme: other.expanderTheme,
+        labelStyle: other.labelStyle,
+        dense: other.dense,
+        verticalSpacing: other.verticalSpacing,
+        horizontalSpacing: other.horizontalSpacing,
+        parentLabelStyle: other.parentLabelStyle,
+        labelOverflow: other.labelOverflow,
+        parentLabelOverflow: other.parentLabelOverflow);
   }
 
   TreeViewTheme resolve(BuildContext context) => this;
 
+  Duration get quickExpandSpeed =>
+      Duration(milliseconds: (expandSpeed.inMilliseconds * 1.6).toInt());
+
   @override
   int get hashCode {
     return hashValues(
-      colorScheme,
-      levelPadding,
-      iconPadding,
-      iconTheme,
-      expanderTheme,
-      labelStyle,
-      dense,
-      verticalSpacing,
-      horizontalSpacing,
-      parentLabelStyle,
-      labelOverflow,
-      parentLabelOverflow
-    );
+        colorScheme,
+        levelPadding,
+        iconPadding,
+        iconTheme,
+        expanderTheme,
+        labelStyle,
+        dense,
+        verticalSpacing,
+        horizontalSpacing,
+        parentLabelStyle,
+        labelOverflow,
+        parentLabelOverflow);
   }
 
   @override

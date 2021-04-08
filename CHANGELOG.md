@@ -1,13 +1,31 @@
+## [0.9.0+1]
+
+### Added
+* Added expandSpeed property to TreeViewTheme to control the speed in which nodes are animated.
+* Added node builder to TreeView to allow custom display of node data. Builder function accepts build context and Node as parameters.
+* Added expandAll, collapseAll, withExpandAll and withCollapseAll to TreeViewController
+
+### Updated
+* Refactored Node class to use IconData for the icon property.
+
+### Removed
+* Removed NodeIcon class.
+
+## [0.8.0+1]
+
+### Added
+* Added support for labelOverflow and parentLabelOverflow. Thanks to Long Ti.
+
 ## [0.7.1+1]
 
 ### Updated
-* Refactored logic to prevent getter 'key' called on null error when calling expandToNode and collapseToNode functions. 
+* Refactored logic to prevent getter 'key' called on null error when calling expandToNode and collapseToNode functions.
 
 ## [0.7.0+1]
 
 ### Added
 * Added support for vertical and horizontal spacing. Thanks to Long Ti.
-* Added support for padding node icons. 
+* Added support for padding node icons.
 * Added bool parent property to Node class to force node to act as parent. 
 
 ### Updated

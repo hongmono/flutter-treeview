@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_treeview/src/models/node.dart';
-import 'package:flutter_treeview/src/models/node_icon.dart';
 
 class Person {
   final int age;
@@ -63,9 +62,7 @@ void main() {
       final map = {
         "label": "Home",
         "expanded": 1,
-        "icon": {
-          "codePoint": Icons.home.codePoint,
-        },
+        "icon": Icons.home.codePoint.toString(),
         "children": [
           {
             "key": "12345b",
@@ -79,12 +76,7 @@ void main() {
       };
       final expectedMap = {
         "label": "Home",
-        "icon": {
-          "codePoint": Icons.home.codePoint,
-          "color": null,
-          "fontFamily": "MaterialIcons",
-          "fontPackage": null,
-        },
+        "icon": null,
         "expanded": true,
         "parent": false,
         "children": [
@@ -109,7 +101,7 @@ void main() {
       final Node node = Node.fromMap(map);
       expect(node.key.isNotEmpty, true);
       expect(node.label, 'Home');
-      expect(node.icon.runtimeType, NodeIcon);
+      expect(node.icon, null);
       expect(node.expanded, true);
       expect(node.children.length, 2);
       expect(node.isParent, true);

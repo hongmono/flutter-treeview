@@ -2,11 +2,10 @@ import 'dart:convert';
 import 'dart:ui';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_treeview/src/tree_node.dart';
 import 'package:flutter_treeview/src/utilities.dart';
 import 'package:flutter_treeview/tree_view.dart';
-
-import 'node_icon.dart';
 
 /// Defines the data used to display a [TreeNode].
 ///
@@ -24,7 +23,7 @@ class Node<T> {
   final String label;
 
   /// An optional icon that is displayed on the [TreeNode].
-  final NodeIcon icon;
+  final IconData icon;
 
   /// The open or closed state of the [TreeNode]. Applicable only if the
   /// node is a parent
@@ -41,7 +40,7 @@ class Node<T> {
   /// having children node.
   final bool parent;
 
-  Node({
+  const Node({
     @required this.key,
     @required this.label,
     this.children: const [],
@@ -71,14 +70,22 @@ class Node<T> {
     String _key = map['key'];
     String _label = map['label'];
     var _data = map['data'];
-    NodeIcon _icon;
+    IconData _icon;
     List<Node> _children = [];
     if (_key == null) {
       _key = Utilities.generateRandom();
     }
-    if (map['icon'] != null) {
-      _icon = NodeIcon.fromMap(map['icon']);
-    }
+    // if (map['icon'] != null) {
+    // int _iconData = int.parse(map['icon']);
+    // if (map['icon'].runtimeType == String) {
+    //   _iconData = int.parse(map['icon']);
+    // } else if (map['icon'].runtimeType == double) {
+    //   _iconData = (map['icon'] as double).toInt();
+    // } else {
+    //   _iconData = map['icon'];
+    // }
+    // _icon = const IconData(_iconData);
+    // }
     if (map['children'] != null) {
       List<Map<String, dynamic>> _childrenMap = List.from(map['children']);
       _children = _childrenMap
@@ -104,7 +111,7 @@ class Node<T> {
     List<Node> children,
     bool expanded,
     bool parent,
-    NodeIcon icon,
+    IconData icon,
     T data,
   }) =>
       Node(
@@ -121,7 +128,7 @@ class Node<T> {
   bool get isParent => children.isNotEmpty || parent;
 
   /// Whether this object has a non-null icon.
-  bool get hasIcon => icon != null && icon.icon != null;
+  bool get hasIcon => icon != null && icon != null;
 
   /// Whether this object has data associated with it.
   bool get hasData => data != null;
@@ -131,7 +138,7 @@ class Node<T> {
     Map<String, dynamic> _map = {
       "key": key,
       "label": label,
-      "icon": icon == null ? null : icon.asMap,
+      "icon": icon == null ? null : icon.codePoint,
       "expanded": expanded,
       "parent": parent,
       "children": children.map((Node child) => child.asMap).toList(),

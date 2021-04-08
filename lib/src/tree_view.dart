@@ -32,6 +32,9 @@ class TreeView extends InheritedWidget {
   /// The tap handler for a node. Passes the node key.
   final Function(String) onNodeTap;
 
+  /// Custom builder for nodes. Parameters are the build context and tree node.
+  final Function(BuildContext, Node) nodeBuilder;
+
   /// The double tap handler for a node. Passes the node key.
   final Function(String) onNodeDoubleTap;
 
@@ -84,6 +87,7 @@ class TreeView extends InheritedWidget {
     this.supportParentDoubleTap: false,
     this.shrinkWrap: false,
     this.primary: true,
+    this.nodeBuilder,
     TreeViewTheme theme,
   })  : this.theme = theme ?? const TreeViewTheme(),
         super(
