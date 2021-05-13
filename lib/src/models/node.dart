@@ -1,11 +1,10 @@
 import 'dart:convert';
 import 'dart:ui';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_treeview/src/tree_node.dart';
-import 'package:flutter_treeview/src/utilities.dart';
-import 'package:flutter_treeview/tree_view.dart';
+
+import '../tree_node.dart';
+import '../utilities.dart';
 
 /// Defines the data used to display a [TreeNode].
 ///

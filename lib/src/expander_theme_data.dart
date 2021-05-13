@@ -1,6 +1,5 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_treeview/src/tree_view_theme.dart';
-import 'package:flutter_treeview/tree_view.dart';
 
 const double _kDefaultExpanderSize = 30.0;
 

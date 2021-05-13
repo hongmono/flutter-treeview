@@ -1,8 +1,9 @@
 import 'dart:math' show pi;
 
 import 'package:flutter/material.dart';
-import 'package:flutter_treeview/tree_view.dart';
 
+import 'tree_view.dart';
+import 'tree_view_theme.dart';
 import 'expander_theme_data.dart';
 import 'models/node.dart';
 
