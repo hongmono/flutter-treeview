@@ -1,3 +1,8 @@
+## [1.0.0+1]
+
+### Updated
+* Updated project to null-safety
+
 ## [0.10.0+1]
 
 ### Updated

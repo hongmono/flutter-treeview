@@ -24,18 +24,6 @@ void main() {
       expect(_keys, _keys.toSet().toList());
     });
   });
-  group('icon', () {
-    test('from value', () {
-      final IconData icon = Utilities.getIcon('adb');
-      expect(icon, Icons.adb);
-      expect(icon.runtimeType, IconData);
-    });
-    test('from values', () {
-      final IconData icon = Utilities.getIcon('CROP_16_9');
-      expect(icon, Icons.crop_16_9);
-      expect(icon.runtimeType, IconData);
-    });
-  });
   group('truthful', () {
     test('is true', () {
       expect(Utilities.truthful(true), true);

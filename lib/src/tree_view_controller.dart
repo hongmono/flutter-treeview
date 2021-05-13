@@ -35,7 +35,7 @@ class TreeViewController {
   final List<Node> children;
 
   /// The key of the select node in the [TreeView].
-  final String selectedKey;
+  final String? selectedKey;
 
   TreeViewController({
     this.children: const [],
@@ -44,7 +44,7 @@ class TreeViewController {
 
   /// Creates a copy of this controller but with the given fields
   /// replaced with the new values.
-  TreeViewController copyWith({List<Node> children, String selectedKey}) {
+  TreeViewController copyWith({List<Node>? children, String? selectedKey}) {
     return TreeViewController(
       children: children ?? this.children,
       selectedKey: selectedKey ?? this.selectedKey,
@@ -97,12 +97,12 @@ class TreeViewController {
   TreeViewController withAddNode(
     String key,
     Node newNode, {
-    Node parent,
+    Node? parent,
+    int? index,
     InsertMode mode: InsertMode.append,
-    int index,
   }) {
     List<Node> _data =
-        addNode(key, newNode, parent: parent, mode: mode, index: index);
+        addNode(key, newNode, parent: parent!, mode: mode, index: index!);
     return TreeViewController(
       children: _data,
       selectedKey: this.selectedKey,
@@ -121,8 +121,8 @@ class TreeViewController {
   ///   controller = controller.withUpdateNode(key, newNode);
   /// });
   /// ```
-  TreeViewController withUpdateNode(String key, Node newNode, {Node parent}) {
-    List<Node> _data = updateNode(key, newNode, parent: parent);
+  TreeViewController withUpdateNode(String key, Node newNode, {Node? parent}) {
+    List<Node> _data = updateNode(key, newNode, parent: parent!);
     return TreeViewController(
       children: _data,
       selectedKey: this.selectedKey,
@@ -141,7 +141,7 @@ class TreeViewController {
   ///   controller = controller.withDeleteNode(key);
   /// });
   /// ```
-  TreeViewController withDeleteNode(String key, {Node parent}) {
+  TreeViewController withDeleteNode(String key, {Node? parent}) {
     List<Node> _data = deleteNode(key, parent: parent);
     return TreeViewController(
       children: _data,
@@ -161,7 +161,7 @@ class TreeViewController {
   ///   controller = controller.withToggleNode(key, newNode);
   /// });
   /// ```
-  TreeViewController withToggleNode(String key, {Node parent}) {
+  TreeViewController withToggleNode(String key, {Node? parent}) {
     List<Node> _data = toggleNode(key, parent: parent);
     return TreeViewController(
       children: _data,
@@ -181,7 +181,7 @@ class TreeViewController {
   ///   controller = controller.withExpandToNode(key, newNode);
   /// });
   /// ```
-  TreeViewController withExpandToNode(String key, {Node parent}) {
+  TreeViewController withExpandToNode(String key, {Node? parent}) {
     List<Node> _data = expandToNode(key);
     return TreeViewController(
       children: _data,
@@ -201,7 +201,7 @@ class TreeViewController {
   ///   controller = controller.withCollapseToNode(key, newNode);
   /// });
   /// ```
-  TreeViewController withCollapseToNode(String key, {Node parent}) {
+  TreeViewController withCollapseToNode(String key, {Node? parent}) {
     List<Node> _data = collapseToNode(key);
     return TreeViewController(
       children: _data,
@@ -221,7 +221,7 @@ class TreeViewController {
   ///   controller = controller.withExpandAll();
   /// });
   /// ```
-  TreeViewController withExpandAll({Node parent}) {
+  TreeViewController withExpandAll({Node? parent}) {
     List<Node> _data = expandAll(parent: parent);
     return TreeViewController(
       children: _data,
@@ -241,7 +241,7 @@ class TreeViewController {
   ///   controller = controller.withCollapseAll();
   /// });
   /// ```
-  TreeViewController withCollapseAll({Node parent}) {
+  TreeViewController withCollapseAll({Node? parent}) {
     List<Node> _data = collapseAll(parent: parent);
     return TreeViewController(
       children: _data,
@@ -250,8 +250,8 @@ class TreeViewController {
   }
 
   /// Gets the node that has a key value equal to the specified key.
-  Node getNode(String key, {Node parent}) {
-    Node _found;
+  Node getNode(String key, {Node? parent}) {
+    Node? _found;
     List<Node> _children = parent == null ? this.children : parent.children;
     Iterator iter = _children.iterator;
     while (iter.moveNext()) {
@@ -268,11 +268,11 @@ class TreeViewController {
         }
       }
     }
-    return _found;
+    return _found!;
   }
 
   /// Expands all node that are children of the parent node parameter. If no parent is passed, uses the root node as the parent.
-  List<Node> expandAll({Node parent}) {
+  List<Node> expandAll({Node? parent}) {
     List<Node> _children = [];
     Iterator iter =
         parent == null ? this.children.iterator : parent.children.iterator;
@@ -291,7 +291,7 @@ class TreeViewController {
   }
 
   /// Collapses all node that are children of the parent node parameter. If no parent is passed, uses the root node as the parent.
-  List<Node> collapseAll({Node parent}) {
+  List<Node> collapseAll({Node? parent}) {
     List<Node> _children = [];
     Iterator iter =
         parent == null ? this.children.iterator : parent.children.iterator;
@@ -310,8 +310,8 @@ class TreeViewController {
   }
 
   /// Gets the parent of the node identified by specified key.
-  Node getParent(String key, {Node parent}) {
-    Node _found;
+  Node? getParent(String key, {Node? parent}) {
+    Node? _found;
     List<Node> _children = parent == null ? this.children : parent.children;
     Iterator iter = _children.iterator;
     while (iter.moveNext()) {
@@ -339,9 +339,9 @@ class TreeViewController {
 
     _ancestors.add(_currentKey);
 
-    Node _parent = this.getParent(_currentKey);
+    Node? _parent = this.getParent(_currentKey);
     if (_parent != null) {
-      while (_parent.key != _currentKey) {
+      while (_parent!.key != _currentKey) {
         _currentKey = _parent.key;
         _ancestors.add(_currentKey);
         _parent = this.getParent(_currentKey);
@@ -365,9 +365,9 @@ class TreeViewController {
 
     _ancestors.add(_currentKey);
 
-    Node _parent = this.getParent(_currentKey);
+    Node? _parent = this.getParent(_currentKey);
     if (_parent != null) {
-      while (_parent.key != _currentKey) {
+      while (_parent!.key != _currentKey) {
         _currentKey = _parent.key;
         _ancestors.add(_currentKey);
         _parent = this.getParent(_currentKey);
@@ -390,9 +390,9 @@ class TreeViewController {
   List<Node> addNode(
     String key,
     Node newNode, {
-    Node parent,
+    Node? parent,
+    int? index,
     InsertMode mode: InsertMode.append,
-    int index,
   }) {
     List<Node> _children = parent == null ? this.children : parent.children;
     return _children.map((Node child) {
@@ -422,7 +422,7 @@ class TreeViewController {
 
   /// Updates an existing node identified by specified key. This method
   /// returns a new list with the updated node.
-  List<Node> updateNode(String key, Node newNode, {Node parent}) {
+  List<Node> updateNode(String key, Node newNode, {Node? parent}) {
     List<Node> _children = parent == null ? this.children : parent.children;
     return _children.map((Node child) {
       if (child.key == key) {
@@ -444,14 +444,14 @@ class TreeViewController {
 
   /// Toggles an existing node identified by specified key. This method
   /// returns a new list with the specified node toggled.
-  List<Node> toggleNode(String key, {Node parent}) {
+  List<Node> toggleNode(String key, {Node? parent}) {
     Node _node = getNode(key, parent: parent);
     return updateNode(key, _node.copyWith(expanded: !_node.expanded));
   }
 
   /// Deletes an existing node identified by specified key. This method
   /// returns a new list with the specified node removed.
-  List<Node> deleteNode(String key, {Node parent}) {
+  List<Node> deleteNode(String key, {Node? parent}) {
     List<Node> _children = parent == null ? this.children : parent.children;
     List<Node> _filteredChildren = [];
     Iterator iter = _children.iterator;
@@ -471,10 +471,8 @@ class TreeViewController {
   }
 
   /// Get the current selected node. Returns null if there is no selectedKey
-  Node get selectedNode {
-    return this.selectedKey == null || this.selectedKey.isEmpty
-        ? null
-        : getNode(this.selectedKey);
+  Node? get selectedNode {
+    return this.selectedKey!.isEmpty ? null : getNode(this.selectedKey!);
   }
 
   /// Map representation of this object

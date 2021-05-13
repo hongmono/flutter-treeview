@@ -23,7 +23,7 @@ class Node<T> {
   final String label;
 
   /// An optional icon that is displayed on the [TreeNode].
-  final IconData icon;
+  final IconData? icon;
 
   /// The open or closed state of the [TreeNode]. Applicable only if the
   /// node is a parent
@@ -31,7 +31,7 @@ class Node<T> {
 
   /// Generic data model that can be assigned to the [TreeNode]. This makes
   /// it useful to assign and retrieve data associated with the [TreeNode]
-  final T data;
+  final T? data;
 
   /// The sub [Node]s of this object.
   final List<Node> children;
@@ -41,8 +41,8 @@ class Node<T> {
   final bool parent;
 
   const Node({
-    @required this.key,
-    @required this.label,
+    required this.key,
+    required this.label,
     this.children: const [],
     this.expanded: false,
     this.parent: false,
@@ -67,10 +67,9 @@ class Node<T> {
   /// value. Excepted values include: 1, yes, true and their
   /// associated string values.
   factory Node.fromMap(Map<String, dynamic> map) {
-    String _key = map['key'];
+    String? _key = map['key'];
     String _label = map['label'];
     var _data = map['data'];
-    IconData _icon;
     List<Node> _children = [];
     if (_key == null) {
       _key = Utilities.generateRandom();
@@ -95,7 +94,6 @@ class Node<T> {
     return Node(
       key: '$_key',
       label: _label,
-      icon: _icon,
       data: _data,
       expanded: Utilities.truthful(map['expanded']),
       parent: Utilities.truthful(map['parent']),
@@ -106,13 +104,13 @@ class Node<T> {
   /// Creates a copy of this object but with the given fields
   /// replaced with the new values.
   Node copyWith({
-    String key,
-    String label,
-    List<Node> children,
-    bool expanded,
-    bool parent,
-    IconData icon,
-    T data,
+    String? key,
+    String? label,
+    List<Node>? children,
+    bool? expanded,
+    bool? parent,
+    IconData? icon,
+    T? data,
   }) =>
       Node(
         key: key ?? this.key,
@@ -138,7 +136,7 @@ class Node<T> {
     Map<String, dynamic> _map = {
       "key": key,
       "label": label,
-      "icon": icon == null ? null : icon.codePoint,
+      "icon": icon == null ? null : icon!.codePoint,
       "expanded": expanded,
       "parent": parent,
       "children": children.map((Node child) => child.asMap).toList(),

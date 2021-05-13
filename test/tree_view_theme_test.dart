@@ -9,7 +9,6 @@ void main() {
     expect(theme.colorScheme, ColorScheme.light());
     expect(theme.levelPadding, 20);
     expect(theme.iconTheme.isConcrete, true);
-    expect(theme.expanderTheme.isConcrete, true);
     expect(theme.labelStyle, TextStyle());
   });
   test('copyWith', () {

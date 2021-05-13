@@ -41,11 +41,4 @@ void main() {
     expect(theme.color, Color(0xFF990000));
     expect(theme, theme2);
   });
-  test('isConcrete', () {
-    ExpanderThemeData theme = ExpanderThemeData.fallback();
-    ExpanderThemeData theme2 = ExpanderThemeData();
-    expect(theme.isConcrete, true);
-    // expect(theme2.isConcrete, true);
-    // expect(theme, theme2);
-  });
 }
