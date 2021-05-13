@@ -33,7 +33,7 @@ class TreeView extends InheritedWidget {
   final Function(String) onNodeTap;
 
   /// Custom builder for nodes. Parameters are the build context and tree node.
-  final Function(BuildContext, Node) nodeBuilder;
+  final Widget Function(BuildContext, Node) nodeBuilder;
 
   /// The double tap handler for a node. Passes the node key.
   final Function(String) onNodeDoubleTap;

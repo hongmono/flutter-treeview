@@ -25,25 +25,22 @@ List<Node> nodes = [
    label: 'Documents',
    key: 'docs',
    expanded: true,
-   icon: NodeIcon(
-     codePoint:
-         docsOpen ? Icons.folder_open.codePoint : Icons.folder.codePoint,
-     color: "blue",
-   ),
+   icon: docsOpen ? Icons.folder_open : Icons.folder,
    children: [
      Node(
          label: 'Job Search',
          key: 'd3',
-         icon: NodeIcon.fromIconData(Icons.input),
+         icon: Icons.input,
          children: [
            Node(
                label: 'Resume.docx',
                key: 'pd1',
-               icon: NodeIcon.fromIconData(Icons.insert_drive_file)),
+               icon: Icons.insert_drive_file,
+           ),
            Node(
                label: 'Cover Letter.docx',
                key: 'pd2',
-               icon: NodeIcon.fromIconData(Icons.insert_drive_file)),
+               icon: Icons.insert_drive_file),
          ]),
      Node(
        label: 'Inspection.docx',
@@ -52,21 +49,21 @@ List<Node> nodes = [
      Node(
          label: 'Invoice.docx',
          key: 'd2',
-         icon: NodeIcon.fromIconData(Icons.insert_drive_file)),
+         icon: Icons.insert_drive_file),
    ],
  ),
  Node(
      label: 'MeetingReport.xls',
      key: 'mrxls',
-     icon: NodeIcon.fromIconData(Icons.insert_drive_file)),
+     icon: Icons.insert_drive_file),
  Node(
      label: 'MeetingReport.pdf',
      key: 'mrpdf',
-     icon: NodeIcon.fromIconData(Icons.insert_drive_file)),
+     icon: Icons.insert_drive_file),
  Node(
      label: 'Demo.zip',
      key: 'demo',
-     icon: NodeIcon.fromIconData(Icons.archive)),
+     icon: Icons.archive),
 ];
 TreeViewController _treeViewController = TreeViewController(children: nodes);
 TreeView(
@@ -144,7 +141,7 @@ List<Node> nodes = [
         key: 'otis',
         data: otis,
       ),      
-      //<T> is optional but recommended
+      //<T> is optional but recommended. If not specified, code can return Node<dynamic> instead of Node<Animal>
       Node(
         label: 'Zorro',
         key: 'zorro',

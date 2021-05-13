@@ -1,3 +1,9 @@
+## [0.10.0+1]
+
+### Updated
+* Fixed NodeExpander Size issue
+* Updated code to use proper hover color between web and mobile
+
 ## [0.9.0+1]
 
 ### Added

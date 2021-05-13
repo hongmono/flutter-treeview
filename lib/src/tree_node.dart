@@ -128,9 +128,7 @@ class _TreeNodeState extends State<TreeNode>
               themeData: _theme.expanderTheme,
             ),
           )
-        : Container(
-            width: 10,
-          );
+        : Container(width: _theme.expanderTheme.size);
   }
 
   Widget _buildNodeIcon() {
@@ -212,13 +210,11 @@ class _TreeNodeState extends State<TreeNode>
         : _buildNodeLabel();
     Widget _tappable = _treeView.onNodeDoubleTap != null
         ? InkWell(
-            hoverColor: Colors.blue,
             onTap: _handleTap,
             onDoubleTap: _handleDoubleTap,
             child: labelContainer,
           )
         : InkWell(
-            hoverColor: Colors.blue,
             onTap: _handleTap,
             child: labelContainer,
           );
