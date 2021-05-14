@@ -96,7 +96,7 @@ class TreeView extends InheritedWidget {
             controller,
             shrinkWrap: shrinkWrap,
             primary: primary,
-            physics: physics!,
+            physics: physics,
           ),
         );
 
@@ -131,7 +131,7 @@ class _TreeViewData extends StatelessWidget {
       child: ListView(
         shrinkWrap: shrinkWrap!,
         primary: primary,
-        physics: physics!,
+        physics: physics,
         padding: EdgeInsets.zero,
         children: _controller.children.map((Node node) {
           return TreeNode(node: node);

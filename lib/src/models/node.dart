@@ -47,8 +47,7 @@ class Node<T> {
     this.parent: false,
     this.icon,
     this.data,
-  })  : assert(key != null),
-        assert(label != null);
+  });
 
   /// Creates a [Node] from a string value. It generates a unique key.
   factory Node.fromLabel(String label) {

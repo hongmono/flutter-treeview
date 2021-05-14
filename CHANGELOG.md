@@ -1,3 +1,10 @@
+## [1.0.3+2]
+* Removed unnecessary asserts
+* Removed null safety check on TreeView scroll physics property
+
+## [1.0.3+1]
+* Null check bug fixes
+
 ## [1.0.2+1]
 * Bug fixes
 

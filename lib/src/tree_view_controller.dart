@@ -102,7 +102,7 @@ class TreeViewController {
     InsertMode mode: InsertMode.append,
   }) {
     List<Node> _data =
-        addNode(key, newNode, parent: parent!, mode: mode, index: index!);
+        addNode(key, newNode, parent: parent, mode: mode, index: index);
     return TreeViewController(
       children: _data,
       selectedKey: this.selectedKey,
@@ -122,7 +122,7 @@ class TreeViewController {
   /// });
   /// ```
   TreeViewController withUpdateNode(String key, Node newNode, {Node? parent}) {
-    List<Node> _data = updateNode(key, newNode, parent: parent!);
+    List<Node> _data = updateNode(key, newNode, parent: parent);
     return TreeViewController(
       children: _data,
       selectedKey: this.selectedKey,
@@ -181,7 +181,7 @@ class TreeViewController {
   ///   controller = controller.withExpandToNode(key, newNode);
   /// });
   /// ```
-  TreeViewController withExpandToNode(String key, {Node? parent}) {
+  TreeViewController withExpandToNode(String key) {
     List<Node> _data = expandToNode(key);
     return TreeViewController(
       children: _data,
@@ -201,7 +201,7 @@ class TreeViewController {
   ///   controller = controller.withCollapseToNode(key, newNode);
   /// });
   /// ```
-  TreeViewController withCollapseToNode(String key, {Node? parent}) {
+  TreeViewController withCollapseToNode(String key) {
     List<Node> _data = collapseToNode(key);
     return TreeViewController(
       children: _data,
