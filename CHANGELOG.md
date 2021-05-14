@@ -1,3 +1,12 @@
+## [1.0.2+1]
+* Bug fixes
+
+### Updated
+* Fixes: Null check operator used on a null value
+* Fixes: Node Data not being written when TreeViewController is converted back to a Map
+Create issue
+
+
 ## [1.0.1+1]
 * Updated internal references
 

@@ -140,6 +140,9 @@ class Node<T> {
       "parent": parent,
       "children": children.map((Node child) => child.asMap).toList(),
     };
+    if (data != null) {
+      _map['data'] = data;
+    }
     //TODO: figure out a means to check for getter or method on generic to include map from generic
     return _map;
   }

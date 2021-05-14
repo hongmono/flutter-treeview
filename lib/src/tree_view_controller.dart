@@ -22,7 +22,7 @@ enum InsertMode {
 ///
 /// ```dart
 /// TreeViewController controller = TreeViewController(children: nodes);
-/// Node node = controller.getNode('unique_key');
+/// Node node = controller.getNode('unique_key')!;
 /// Node updatedNode = node.copyWith(
 ///   key: 'another_unique_key',
 ///   label: 'Another Node',
@@ -250,7 +250,7 @@ class TreeViewController {
   }
 
   /// Gets the node that has a key value equal to the specified key.
-  Node getNode(String key, {Node? parent}) {
+  Node? getNode(String key, {Node? parent}) {
     Node? _found;
     List<Node> _children = parent == null ? this.children : parent.children;
     Iterator iter = _children.iterator;
@@ -268,7 +268,7 @@ class TreeViewController {
         }
       }
     }
-    return _found!;
+    return _found;
   }
 
   /// Expands all node that are children of the parent node parameter. If no parent is passed, uses the root node as the parent.
@@ -348,7 +348,7 @@ class TreeViewController {
       }
       TreeViewController _this = this;
       _ancestors.forEach((String k) {
-        Node _node = _this.getNode(k);
+        Node _node = _this.getNode(k)!;
         Node _updated = _node.copyWith(expanded: true);
         _this = _this.withUpdateNode(k, _updated);
       });
@@ -374,7 +374,7 @@ class TreeViewController {
       }
       TreeViewController _this = this;
       _ancestors.forEach((String k) {
-        Node _node = _this.getNode(k);
+        Node _node = _this.getNode(k)!;
         Node _updated = _node.copyWith(expanded: false);
         _this = _this.withUpdateNode(k, _updated);
       });
@@ -445,8 +445,8 @@ class TreeViewController {
   /// Toggles an existing node identified by specified key. This method
   /// returns a new list with the specified node toggled.
   List<Node> toggleNode(String key, {Node? parent}) {
-    Node _node = getNode(key, parent: parent);
-    return updateNode(key, _node.copyWith(expanded: !_node.expanded));
+    Node? _node = getNode(key, parent: parent);
+    return updateNode(key, _node!.copyWith(expanded: !_node.expanded));
   }
 
   /// Deletes an existing node identified by specified key. This method
