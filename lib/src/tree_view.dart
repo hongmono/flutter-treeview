@@ -127,7 +127,7 @@ class _TreeViewData extends StatelessWidget {
   Widget build(BuildContext context) {
     ThemeData _parentTheme = Theme.of(context);
     return Theme(
-      data: _parentTheme.copyWith(hoverColor: Colors.grey.shade100),
+      data: _parentTheme,
       child: ListView(
         shrinkWrap: shrinkWrap!,
         primary: primary,

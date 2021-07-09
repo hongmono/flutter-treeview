@@ -1,3 +1,9 @@
+## [1.0.4+1]
+
+### Updated
+* Updated Node copyWith method to properly use Generic for children nodes
+* Removed hardcoded hoverColor when creating the TreeView widget
+
 ## [1.0.3+2]
 * Removed unnecessary asserts
 * Removed null safety check on TreeView scroll physics property

@@ -104,7 +104,7 @@ class Node<T> {
   Node copyWith({
     String? key,
     String? label,
-    List<Node>? children,
+    List<Node<T>>? children,
     bool? expanded,
     bool? parent,
     IconData? icon,
