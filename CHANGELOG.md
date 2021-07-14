@@ -1,3 +1,9 @@
+## [1.0.5+1]
+
+### Updated
+* Refactored Node factory constructors. Changed to static methods to support the use of Generics.
+* Updated TreeViewController to better support returning Node instances with Generic used at instantiation.
+
 ## [1.0.4+1]
 
 ### Updated

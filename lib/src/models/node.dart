@@ -50,7 +50,7 @@ class Node<T> {
   });
 
   /// Creates a [Node] from a string value. It generates a unique key.
-  factory Node.fromLabel(String label) {
+  static Node<T> fromLabel<T>(String label) {
     String _key = Utilities.generateRandom();
     return Node<T>(
       key: '${_key}_$label',
@@ -64,11 +64,11 @@ class Node<T> {
   /// If the expanded value, if present, can be any 'truthful'
   /// value. Excepted values include: 1, yes, true and their
   /// associated string values.
-  factory Node.fromMap(Map<String, dynamic> map) {
+  static Node<T> fromMap<T>(Map<String, dynamic> map) {
     String? _key = map['key'];
     String _label = map['label'];
     var _data = map['data'];
-    List<Node<T>> _children = [];
+    List<Node> _children = [];
     if (_key == null) {
       _key = Utilities.generateRandom();
     }
@@ -86,7 +86,7 @@ class Node<T> {
     if (map['children'] != null) {
       List<Map<String, dynamic>> _childrenMap = List.from(map['children']);
       _children = _childrenMap
-          .map((Map<String, dynamic> child) => Node<T>.fromMap(child))
+          .map((Map<String, dynamic> child) => Node.fromMap(child))
           .toList();
     }
     return Node<T>(
@@ -104,7 +104,7 @@ class Node<T> {
   Node<T> copyWith({
     String? key,
     String? label,
-    List<Node<T>>? children,
+    List<Node>? children,
     bool? expanded,
     bool? parent,
     IconData? icon,
@@ -137,7 +137,7 @@ class Node<T> {
       "icon": icon == null ? null : icon!.codePoint,
       "expanded": expanded,
       "parent": parent,
-      "children": children.map((Node<T> child) => child.asMap).toList(),
+      "children": children.map((Node child) => child.asMap).toList(),
     };
     if (data != null) {
       _map['data'] = data as T;

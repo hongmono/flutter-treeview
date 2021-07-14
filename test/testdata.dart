@@ -1,24 +1,26 @@
 import 'package:flutter_treeview/src/models/node.dart';
 
 List<Node> testNodes = [
-  Node(label: 'documents', key: 'docs', children: [
-    Node(label: 'personal', key: 'd3', children: [
-      Node(label: 'Resume.docx', key: 'pd1'),
-      Node(label: 'Cover Letter.docx', key: 'pd2'),
+  Node<String>(label: 'documents', data: 'docs', key: 'docs', children: [
+    Node<double>(label: 'personal', data: 1.0, key: 'd3', children: [
+      Node<bool>(label: 'Resume.docx', data: true, key: 'pd1'),
+      Node<bool>(label: 'Cover Letter.docx', data: false, key: 'pd2'),
     ]),
-    Node(label: 'Inspection.docx', key: 'd1'),
-    Node(label: 'Invoice.docx', key: 'd2'),
+    Node<double>(label: 'Inspection.docx', data: 2.0, key: 'd1'),
+    Node<double>(label: 'Invoice.docx', data: 3.0, key: 'd2'),
   ]),
-  Node(
+  Node<String>(
     label: 'MeetingReport.xls',
+    data: 'mrxls',
     key: 'mrxls',
   ),
-  Node(
+  Node<String>(
     label: 'MeetingReport.pdf',
     key: 'mrpdf',
   ),
-  Node(
+  Node<String>(
     label: 'Demo.zip',
+    data: 'demo',
     key: 'demo',
   ),
 ];

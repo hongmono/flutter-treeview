@@ -8,21 +8,21 @@ void main() {
   group('TreeViewController Tests', () {
     test('...get node', () {
       TreeViewController controller = TreeViewController(children: testNodes);
-      Node? validNode = controller.getNode('pd1');
+      Node<bool>? validNode = controller.getNode<bool>('pd1');
       Node? invalidNode = controller.getNode('xpd1');
       expect(controller.children.length, 4);
-      expect(validNode.runtimeType, Node);
+      expect(validNode is Node<bool>, true);
       expect(validNode!.label, 'Resume.docx');
       expect(invalidNode.runtimeType, Null);
     });
     test('...get parent', () {
       TreeViewController controller = TreeViewController(children: testNodes);
-      Node? nodeParent = controller.getParent('pd1');
-      Node? rootParent = controller.getParent('docs');
+      Node<String>? nodeParent = controller.getParent<String>('pd1');
+      var rootParent = controller.getParent<String>('docs');
       Node? noParent = controller.getParent('xpd1');
       expect(nodeParent.runtimeType, Node);
       expect(nodeParent!.key, 'd3');
-      expect(rootParent.runtimeType, Node);
+      expect(rootParent is Node<String>, true);
       expect(rootParent!.key, 'docs');
       expect(noParent.runtimeType, Null);
     });
@@ -37,7 +37,7 @@ void main() {
       controller = TreeViewController(children: newChildren);
       Node? validNode = controller.getNode('pdf1');
       Node? invalidNode = controller.getNode('pd1');
-      expect(validNode.runtimeType, Node);
+      expect(validNode is Node<double>, true);
       expect(validNode!.key, updatedNode.key);
       expect(validNode.label, updatedNode.label);
       expect(invalidNode.runtimeType, Null);
