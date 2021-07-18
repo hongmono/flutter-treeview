@@ -311,13 +311,13 @@ class TreeViewController {
 
   /// Gets the parent of the node identified by specified key.
   Node<T>? getParent<T>(String key, {Node? parent}) {
-    Node<T>? _found;
+    Node? _found;
     List<Node> _children = parent == null ? this.children : parent.children;
     Iterator iter = _children.iterator;
     while (iter.moveNext()) {
       Node child = iter.current;
       if (child.key == key) {
-        _found = (parent ?? child) as Node<T>;
+        _found = parent ?? child;
         break;
       } else {
         if (child.isParent) {
@@ -328,7 +328,7 @@ class TreeViewController {
         }
       }
     }
-    return _found;
+    return _found == null ? null : _found as Node<T>;
   }
 
   /// Expands a node and all of the node's ancestors so that the node is

@@ -17,10 +17,10 @@ void main() {
     });
     test('...get parent', () {
       TreeViewController controller = TreeViewController(children: testNodes);
-      Node<String>? nodeParent = controller.getParent<String>('pd1');
+      var nodeParent = controller.getParent<double>('pd1');
       var rootParent = controller.getParent<String>('docs');
-      Node? noParent = controller.getParent('xpd1');
-      expect(nodeParent.runtimeType, Node);
+      var noParent = controller.getParent('xpd1');
+      expect(nodeParent is Node<double>, true);
       expect(nodeParent!.key, 'd3');
       expect(rootParent is Node<String>, true);
       expect(rootParent!.key, 'docs');
@@ -37,7 +37,7 @@ void main() {
       controller = TreeViewController(children: newChildren);
       Node? validNode = controller.getNode('pdf1');
       Node? invalidNode = controller.getNode('pd1');
-      expect(validNode is Node<double>, true);
+      expect(validNode is Node<bool>, true);
       expect(validNode!.key, updatedNode.key);
       expect(validNode.label, updatedNode.label);
       expect(invalidNode.runtimeType, Null);
