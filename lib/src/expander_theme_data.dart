@@ -13,6 +13,7 @@ enum ExpanderPosition {
 /// Defines the type expander icon displayed. All
 /// types except the plus-minus type will be animated
 enum ExpanderType {
+  none,
   caret,
   arrow,
   chevron,

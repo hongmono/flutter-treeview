@@ -119,6 +119,7 @@ class _TreeNodeState extends State<TreeNode>
     TreeView? _treeView = TreeView.of(context);
     assert(_treeView != null, 'TreeView must exist in context');
     TreeViewTheme _theme = _treeView!.theme;
+    if (_theme.expanderTheme.type == ExpanderType.none) return Container();
     return widget.node.isParent
         ? GestureDetector(
             onTap: () => _handleExpand(),
@@ -431,6 +432,7 @@ class _TreeNodeExpanderState extends State<_TreeNodeExpander>
             ? widget.themeData.size - 8
             : widget.themeData.size;
         break;
+      case ExpanderType.none:
       case ExpanderType.caret:
         _arrow = Icons.arrow_drop_down;
         break;
