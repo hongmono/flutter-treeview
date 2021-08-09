@@ -1,10 +1,10 @@
 name: flutter_treeview
 description: A tree widget for Flutter that can be used to display nested, hierarchical data. It includes a number of features like styling labels, icons, and import and export utilities.
-version: 1.0.5+3
+version: 1.0.6+1
 homepage: https://bitbucket.org/kevinandre/flutter_treeview/src/master/
 repository: https://bitbucket.org/kevinandre/flutter_treeview/src/master/
 issue_tracker: https://bitbucket.org/kevinandre/flutter_treeview/issues
-documentation: https://bitbucket.org/kevinandre/flutter_treeview/wiki/Home
+documentation: https://cagn.codeninelabs.com/widgets/treeview/
 api: https://pub.dev/documentation/flutter_treeview/latest/
 #author: kevinandre.com <kevin@codeninelabs.com>
 

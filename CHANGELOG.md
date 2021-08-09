@@ -1,4 +1,17 @@
-## [1.0.5+1]
+## [1.0.6+1]
+
+### Added
+* Added ability to add specific color to node icon using iconColor and selectedIconColor property. This replaces the previous ability to do this using the removed NodeIcon class.
+
+## [1.0.5+4]
+
+### Updated
+* Updated documentation link
+
+## [1.0.5+3]
+
+### Added
+* Added ability to hide expander icon using ExpanderTheme
 
 ### Updated
 * Refactored Node factory constructors. Changed to static methods to support the use of Generics.

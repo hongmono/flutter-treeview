@@ -24,6 +24,13 @@ class Node<T> {
   /// An optional icon that is displayed on the [TreeNode].
   final IconData? icon;
 
+  /// An optional color that will be applied to the icon for this node.
+  final Color? iconColor;
+
+  /// An optional color that will be applied to the icon when this node
+  /// is selected.
+  final Color? selectedIconColor;
+
   /// The open or closed state of the [TreeNode]. Applicable only if the
   /// node is a parent
   final bool expanded;
@@ -46,6 +53,8 @@ class Node<T> {
     this.expanded: false,
     this.parent: false,
     this.icon,
+    this.iconColor,
+    this.selectedIconColor,
     this.data,
   });
 
@@ -108,12 +117,16 @@ class Node<T> {
     bool? expanded,
     bool? parent,
     IconData? icon,
+    Color? iconColor,
+    Color? selectedIconColor,
     T? data,
   }) =>
       Node<T>(
         key: key ?? this.key,
         label: label ?? this.label,
         icon: icon ?? this.icon,
+        iconColor: iconColor ?? this.iconColor,
+        selectedIconColor: selectedIconColor ?? this.selectedIconColor,
         expanded: expanded ?? this.expanded,
         parent: parent ?? this.parent,
         children: children ?? this.children,
@@ -135,6 +148,9 @@ class Node<T> {
       "key": key,
       "label": label,
       "icon": icon == null ? null : icon!.codePoint,
+      "iconColor": iconColor == null ? null : iconColor!.toString(),
+      "selectedIconColor":
+          selectedIconColor == null ? null : selectedIconColor!.toString(),
       "expanded": expanded,
       "parent": parent,
       "children": children.map((Node child) => child.asMap).toList(),
@@ -157,6 +173,8 @@ class Node<T> {
       key,
       label,
       icon,
+      iconColor,
+      selectedIconColor,
       expanded,
       parent,
       children,
@@ -171,6 +189,8 @@ class Node<T> {
         other.key == key &&
         other.label == label &&
         other.icon == icon &&
+        other.iconColor == iconColor &&
+        other.selectedIconColor == selectedIconColor &&
         other.expanded == expanded &&
         other.parent == parent &&
         other.data.runtimeType == T &&

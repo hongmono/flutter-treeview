@@ -147,8 +147,12 @@ class _TreeNodeState extends State<TreeNode>
               widget.node.icon,
               size: _theme.iconTheme.size,
               color: isSelected
-                  ? _theme.colorScheme.onPrimary
-                  : _theme.iconTheme.color,
+                  ? widget.node.selectedIconColor == null
+                      ? _theme.colorScheme.onPrimary
+                      : widget.node.selectedIconColor
+                  : widget.node.iconColor == null
+                      ? _theme.iconTheme.color
+                      : widget.node.iconColor,
             )
           : null,
     );
