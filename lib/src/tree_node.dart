@@ -111,11 +111,11 @@ class _TreeNodeState extends State<TreeNode> with SingleTickerProviderStateMixin
     }
   }
 
-  void _handleLongTap() {
+  void _handleLongPress() {
     TreeView? _treeView = TreeView.of(context);
     assert(_treeView != null, 'TreeView must exist in context');
-    if (_treeView!.onNodeLongTap != null) {
-      _treeView.onNodeLongTap!(widget.node.key);
+    if (_treeView!.onNodeLongPress != null) {
+      _treeView.onNodeLongPress!(widget.node.key);
     }
   }
 
@@ -209,7 +209,7 @@ class _TreeNodeState extends State<TreeNode> with SingleTickerProviderStateMixin
         ? InkWell(
             onTap: _handleTap,
             onDoubleTap: _handleDoubleTap,
-            onLongPress: _handleLongTap,
+            onLongPress: _handleLongPress,
             child: labelContainer,
           )
         : InkWell(
@@ -230,7 +230,7 @@ class _TreeNodeState extends State<TreeNode> with SingleTickerProviderStateMixin
         _tappable = InkWell(
           onTap: _handleExpand,
           onDoubleTap: _handleDoubleTap,
-          onLongPress: _handleLongTap,
+          onLongPress: _handleLongPress,
           child: labelContainer,
         );
       } else {
