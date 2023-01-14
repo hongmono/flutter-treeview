@@ -220,7 +220,11 @@ class _TreeNodeState extends State<TreeNode> with SingleTickerProviderStateMixin
     if (widget.node.isParent) {
       if (_treeView.supportParentDoubleTap && canSelectParent) {
         _tappable = InkWell(
-          onTap: canSelectParent ? _handleTap : _handleExpand,
+          // onTap: canSelectParent ? _handleTap : _handleExpand,
+          onTap: () {
+            _handleExpand();
+            _handleTap();
+          },
           onDoubleTap: () {
             _handleExpand();
             _handleDoubleTap();
