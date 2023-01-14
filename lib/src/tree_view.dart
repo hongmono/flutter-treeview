@@ -38,6 +38,9 @@ class TreeView extends InheritedWidget {
   /// The double tap handler for a node. Passes the node key.
   final Function(String)? onNodeDoubleTap;
 
+  /// The long tap handler for a node. Passes the node key.
+  final Function(String)? onNodeLongTap;
+
   /// The expand/collapse handler for a node. Passes the node key and the
   /// expansion state.
   final Function(String, bool)? onExpansionChanged;
@@ -81,6 +84,7 @@ class TreeView extends InheritedWidget {
     required this.controller,
     this.onNodeTap,
     this.onNodeDoubleTap,
+    this.onNodeLongTap,
     this.physics,
     this.onExpansionChanged,
     this.allowParentSelect: false,
@@ -100,8 +104,7 @@ class TreeView extends InheritedWidget {
           ),
         );
 
-  static TreeView? of(BuildContext context) =>
-      context.dependOnInheritedWidgetOfExactType(aspect: TreeView);
+  static TreeView? of(BuildContext context) => context.dependOnInheritedWidgetOfExactType(aspect: TreeView);
 
   @override
   bool updateShouldNotify(TreeView oldWidget) {
@@ -120,8 +123,7 @@ class _TreeViewData extends StatelessWidget {
   final bool? primary;
   final ScrollPhysics? physics;
 
-  const _TreeViewData(this._controller,
-      {this.shrinkWrap, this.primary, this.physics});
+  const _TreeViewData(this._controller, {this.shrinkWrap, this.primary, this.physics});
 
   @override
   Widget build(BuildContext context) {
