@@ -214,6 +214,7 @@ class _TreeNodeState extends State<TreeNode> with SingleTickerProviderStateMixin
           )
         : InkWell(
             onTap: _handleTap,
+            onLongPress: _handleLongPress,
             child: labelContainer,
           );
     if (widget.node.isParent) {
@@ -224,6 +225,7 @@ class _TreeNodeState extends State<TreeNode> with SingleTickerProviderStateMixin
             _handleExpand();
             _handleDoubleTap();
           },
+          onLongPress: _handleLongPress,
           child: labelContainer,
         );
       } else if (_treeView.supportParentDoubleTap) {
@@ -236,6 +238,7 @@ class _TreeNodeState extends State<TreeNode> with SingleTickerProviderStateMixin
       } else {
         _tappable = InkWell(
           onTap: canSelectParent ? _handleTap : _handleExpand,
+          onLongPress: _handleLongPress,
           child: labelContainer,
         );
       }
