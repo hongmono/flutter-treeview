@@ -241,7 +241,11 @@ class _TreeNodeState extends State<TreeNode> with SingleTickerProviderStateMixin
         );
       } else {
         _tappable = InkWell(
-          onTap: canSelectParent ? _handleTap : _handleExpand,
+          // onTap: canSelectParent ? _handleTap : _handleExpand,
+          onTap: () {
+            _handleExpand();
+            _handleTap();
+          },
           onLongPress: _handleLongPress,
           child: labelContainer,
         );
